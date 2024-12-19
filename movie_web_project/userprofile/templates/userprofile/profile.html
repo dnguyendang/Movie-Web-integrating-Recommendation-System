@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+    <title>Profile</title>
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <style>
+        html, body{
+            height: 100%;
+            background-color: #f6f6f6;
+        }
+    </style>
+</head>
+<body>
+<h1>Your Profile</h1>
+    <p>Name: {{ user.username }}</p>
+    <p>Email: {{ user.email }}</p>
+    <p>Date of Birth: {{ user.userprofile.birth_date }}</p>
+    <div class="hero">
+        <div class="form-box">
+            <div class="button-box">
+                <div id="btn"></div>
+                <button type="button" class="toggle-btn">Edit</button>
+            </div>
+            <form id="edit" class="input-group" method="post">
+                <input type="text" class="input-field" name="birthdate" placeholder="Birth Date">
+                <input type="email" class="input-field" name="email" placeholder="Email">
+                <button type="submit" class="submit-btn">Submit</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Movies Website</title>
+    
+    <!--Box Icons-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <!-- Link CSS for userprofile -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="home.css">
+</head>
+<body>
+    <!-- Navbar-->
+    <header>
+        <a href="#" class="logo">
+            <i class='bx bxs-movie'></i> Movies
+        </a>
+        <div class="bx bx-menu" id="menu-icon"></div>
+
+        <!-- Menu -->
+        <ul class="navbar">
+            <li><a href="#home" class="home-active">Home</a></li>
+            <li><a href="#movies">Movies</a></li>
+            <li><a>Genre</a>
+                <ul class="dropdown">
+                    <li><a href="#coming">comming</a></li>
+                    <li><a href="#movies">movies</a></li>
+                    <li><a href="#newsletter">newsletter</a></li>
+                </ul>
+            </li>
+            <li><a>Country</a>
+                <ul class="dropdown">
+                    <li><a href="#coming">comming</a></li>
+                    <li><a href="#movies">movies</a></li>
+                    <li><a href="#newsletter">newsletter</a></li>
+                </ul>
+            </li>
+            <li><a href="#coming">Coming</a></li>
+            <li><a href="#newsletter">Newsletter</a></li>
+        </ul>
+        <a href="#" class="btn">Sign In</a>
+    </header>
+    <!-- profile user -->
+    <section class="userprofile" id="userprofile">
+        <h2 class="heading">User Profile</h2>
+        <!-- content -->
+        <div class="container light-style flex-grow-1 container-p-y">
+            <div class="card overflow-hidden">
+                <div class="row no-gutters row-bordered row-border-light">
+                    <div class="col-md-3 pt-0">
+                        <div class="list-group list-group-flush account-settings-links">
+                            <a class="list-group-item list-group-item-action" data-toggle="list"
+                                href="#account-general">General</a>
+                            <a class="list-group-item list-group-item-action" data-toggle="list"
+                                href="#account-change-password">Change password</a>
+                            <a class="list-group-item list-group-item-action" data-toggle="list"
+                                href="#account-info">Info</a>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="tab-content">
+                            <div class="tab-pane fade active show" id="account-general">
+                                <!-- noi dung -->
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label class="form-label">Username</label>
+                                        <input type="text" class="form-control mb-1" value="nmaxwell">
+                                        <!-- neu ten trung -->
+                                        <div class="alert alert-warning mt-3">
+                                            Your username exited.<br>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Last Name</label>
+                                        <input type="text" class="form-control" value="Maxwell">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">First Name</label>
+                                        <input type="text" class="form-control" value="Nelle">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">E-mail</label>
+                                        <input type="text" class="form-control mb-1" value="nmaxwell@mail.com">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- change password -->
+                            <div class="tab-pane fade" id="account-change-password">
+                                <div class="card-body pb-2">
+                                    <div class="form-group">
+                                        <label class="form-label">Current password</label>
+                                        <input type="password" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">New password</label>
+                                        <input type="password" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Repeat new password</label>
+                                        <input type="password" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- thong tin -->
+                            <div class="tab-pane fade" id="account-info">
+                                <div class="card-body pb-2">
+                                    <div class="form-group">
+                                        <label class="form-label">Birthday</label>
+                                        <input type="date" class="form-control" value="May 3, 1995">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Gender</label>
+                                        <select class="custom-select">
+                                            <option selected>Male</option>
+                                            <option>Female</option>
+                                            <option>Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Country</label>
+                                        <select class="custom-select">
+                                            <option>USA</option>
+                                            <option selected>Canada</option>
+                                            <option>UK</option>
+                                            <option>Germany</option>
+                                            <option>France</option>
+                                            <option>Other</option>
+                                        </select>
+                                    </div>
+    
+                                </div>
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+            </div>
+            <div class="text-right mt-3">
+                <button type="submit" class="btn">Save changes</button>&nbsp;
+                <a href="index.html">
+                    <button type="button" class="btn">Cancel</button>
+                </a>
+            </div>
+        </div>
+    </section>
+    <!-- Movie -->
+    <section class="movies" id="movies">
+        <h2 class="heading">History</h2>
+        <!-- Movies Conatiner -->
+        <div class="movies-container">
+            <!-- Box 1 -->
+            <div class="box">
+                <div class="box-img">
+                    <img src="https://img.watchseriestv.top/xxrz/250x400/228/65/87/6587145ae747be453236daf1e3c8f29c/6587145ae747be453236daf1e3c8f29c.jpg" alt="">
+                </div>
+                <h3>Under the Chrismas Sky</h3>
+                <span>120 min | TV Movie, Drama, Romance</span>
+            </div>    
+            <!-- Box 2 -->
+            <div class="box">
+                <div class="box-img">
+                    <img src="https://img.watchseriestv.top/xxrz/250x400/228/24/5f/245f4bc3c523335a39dce275292c424c/245f4bc3c523335a39dce275292c424c.jpg" alt="">
+                </div>
+                <h3>Sick Girl</h3>
+                <span>120 min | Comedy</span>
+            </div>  
+            <!-- Box 3 -->
+            <div class="box">
+                <div class="box-img">
+                    <img src="https://img.watchseriestv.top/xxrz/250x400/228/91/72/9172bee6d9a064a54e64d40d961f3b0c/9172bee6d9a064a54e64d40d961f3b0c.jpg" alt="">
+                </div>
+                <h3>The After</h3>
+                <span>120 min | Drama</span>
+            </div>  
+            <!-- Box 1 -->
+            <div class="box">
+                <div class="box-img">
+                    <img src="https://img.watchseriestv.top/xxrz/250x400/228/65/87/6587145ae747be453236daf1e3c8f29c/6587145ae747be453236daf1e3c8f29c.jpg" alt="">
+                </div>
+                <h3>Under the Chrismas Sky</h3>
+                <span>120 min | TV Movie, Drama, Romance</span>
+            </div>    
+            <!-- Box 2 -->
+            <div class="box">
+                <div class="box-img">
+                    <img src="https://img.watchseriestv.top/xxrz/250x400/228/24/5f/245f4bc3c523335a39dce275292c424c/245f4bc3c523335a39dce275292c424c.jpg" alt="">
+                </div>
+                <h3>Sick Girl</h3>
+                <span>120 min | Comedy</span>
+            </div>  
+            <!-- Box 3 -->
+            <div class="box">
+                <div class="box-img">
+                    <img src="https://img.watchseriestv.top/xxrz/250x400/228/91/72/9172bee6d9a064a54e64d40d961f3b0c/9172bee6d9a064a54e64d40d961f3b0c.jpg" alt="">
+                </div>
+                <h3>The After</h3>
+                <span>120 min | Drama</span>
+            </div>  
+            <!-- Box 1 -->
+            <div class="box">
+                <div class="box-img">
+                    <img src="https://img.watchseriestv.top/xxrz/250x400/228/65/87/6587145ae747be453236daf1e3c8f29c/6587145ae747be453236daf1e3c8f29c.jpg" alt="">
+                </div>
+                <h3>Under the Chrismas Sky</h3>
+                <span>120 min | TV Movie, Drama, Romance</span>
+            </div>    
+            <!-- Box 2 -->
+            <div class="box">
+                <div class="box-img">
+                    <img src="https://img.watchseriestv.top/xxrz/250x400/228/24/5f/245f4bc3c523335a39dce275292c424c/245f4bc3c523335a39dce275292c424c.jpg" alt="">
+                </div>
+                <h3>Sick Girl</h3>
+                <span>120 min | Comedy</span>
+            </div>  
+            <!-- Box 3 -->
+            <div class="box">
+                <div class="box-img">
+                    <img src="https://img.watchseriestv.top/xxrz/250x400/228/91/72/9172bee6d9a064a54e64d40d961f3b0c/9172bee6d9a064a54e64d40d961f3b0c.jpg" alt="">
+                </div>
+                <h3>The After</h3>
+                <span>120 min | Drama</span>
+            </div>              
+        </div>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

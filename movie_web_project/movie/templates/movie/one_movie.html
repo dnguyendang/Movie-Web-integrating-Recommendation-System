@@ -1,0 +1,25 @@
+{% extends "movie/base.html" %}
+
+{% block title %}Movie{% endblock %}
+
+{%block content %}
+    <!-- Hiển thị danh sách phim -->
+    <h2>Danh sách các phim</h2>
+    <ul>
+            <li>
+                <h3>{{ movie.title }}</h3>
+                <p>{{ movie.description }}</p>
+                <p>Ngày phát hành: {{ movie.release_date }}</p>
+                <!-- Đoạn mã HTML hiển thị thông tin của phim -->
+                <p>View Count: {{ movie.view_count }}</p>
+                <p>Rating Score: {{ movie.rating_score }}</p>
+<!-- Các phần khác của template -->
+
+            </li>
+    </ul>
+    <footer>
+        <!-- Chân trang -->
+        <p>© 2023 Ứng dụng Web của bạn</p>
+    </footer>
+{% endblock %}
+

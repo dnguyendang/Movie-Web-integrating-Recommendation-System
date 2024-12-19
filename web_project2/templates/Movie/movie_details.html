@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{movie.title}}</title>
+
+    <!-- Link CSS for userprofile -->
+    <link rel="stylesheet" href="{% static 'Movie/movie_details.css' %}">
+    
+    <!--Box Icons-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body{
+            background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url('{{ movie.backdrop_path }}');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Navbar-->
+    <header>
+        <a href="#" class="logo">
+            <i class='bx bxs-movie'></i> Movies
+        </a>
+        <div class="bx bx-menu" id="menu-icon"></div>
+
+        <!-- Menu -->
+        <ul class="navbar">
+            <li><a href="{% url 'Home' %}#home" class="home-active">Home</a></li>
+            <li><a href="{% url 'Movies' %}">Movies</a></li>
+            <li><a href="{% url 'Movies_popularity' %}">Popular</a></li>
+            <li><a href="{% url 'Movies_rate' %}">Top Rated</a></li>
+            <li><a>Genre</a>
+                <ul class="dropdown">
+                    {% for genre in genres %}
+                        <li><a href="{% url 'Movies_by_genre' genre.id %}">{{genre.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li><a>Country</a>
+                <ul class="dropdown">
+                    {% for country in countries %}
+                        <li><a href="{% url 'Movies_by_country' country.id %}">{{country.name}}</a></li>
+                    {% endfor %}
+                </ul>
+            </li>
+        </ul>
+        {% if user.is_authenticated %}
+            <div class="button">
+                <a href="{% url 'UserProfile' %}" class="btn">{{user.username}}</a>
+                <a href="{% url 'Logout' %}" class="btn">Logout</a>
+            </div>
+        {% else %}
+            <div class="button">
+                <a href="{% url 'Login' %}" class="btn">Login</a>
+                <a href="{% url 'Register' %}" class="btn">Register</a>
+            </div>
+        {% endif %}
+    </header>
+
+    <!-- Movie -->
+    <section class="movies" id="movies">
+        <h2 class="heading">Movie Details</h2>
+        <!-- Movies Conatiner -->
+        <div class="movies-container">
+            <div class="box-img">
+                <img src="{{ movie.poster_path }}" alt="" width="400" height="550">
+                <div class="rating-form">
+                    <div class="skills">
+                        <h3>Your Rating: </h3>
+                        <div class="rating-wrapper">
+                            <!-- Display existing rating if available -->
+                            <i class="star{% if user_rating.rating_score == 10 %}-checked{% endif %}"></i>
+                            <i class="star{% if user_rating.rating_score >= 9 %}-checked{% endif %}"></i>
+                            <i class="star{% if user_rating.rating_score >= 8 %}-checked{% endif %}"></i>
+                            <i class="star{% if user_rating.rating_score >= 7 %}-checked{% endif %}"></i>
+                            <i class="star{% if user_rating.rating_score >= 6 %}-checked{% endif %}"></i>
+                            <i class="star{% if user_rating.rating_score >= 5 %}-checked{% endif %}"></i>
+                            <i class="star{% if user_rating.rating_score >= 4 %}-checked{% endif %}"></i>
+                            <i class="star{% if user_rating.rating_score >= 3 %}-checked{% endif %}"></i>
+                            <i class="star{% if user_rating.rating_score >= 2 %}-checked{% endif %}"></i>
+                            <i class="star{% if user_rating.rating_score >= 1 %}-checked{% endif %}"></i>
+                        </div> 
+                    </div>
+                    <a href="{% url 'Movie_trailer' movie.id %}#trailer">
+                        <button type="button" class="btn">Watch</button>
+                    </a>
+                </div>
+            </div>
+
+            <div class="box-info">
+                <div class="rating">
+                    <span class="view_count">View Count: {{movie.view_count}}</span><br>
+                    <span class="rating_score">Rating: {{movie.rating_score}}</span><br>
+                    <span class="popularity">Popularity: {{movie.popularity}}</span>
+                </div>
+                <h2 class="heading-name">
+                    <a href="{% url 'Movie_details' movie.id %}">{{ movie.title }}</a>
+                </h2>
+                <div class="description">{{ movie.overview }}</div>
+                <div class="elements">
+                    <div class="column">
+                        <div class="row-line">
+                            <span class="type">
+                                <strong>Released: </strong>
+                            </span>
+                            {{ movie.release_date }}
+                        </div>
+                        <div class="row-line">
+                            <span class="type">
+                                <strong>Genre: </strong>
+                            </span>
+                            {% for genre in movie.genres.all %}
+                                {{genre.name}}, 
+                            {% endfor %}
+                        </div>
+                        <div class="row-line">
+                            <span class="type">
+                                <strong>Cast: </strong>
+                            </span>
+                            {% for cast in movie.casts.all %}
+                                {{cast.name}}, 
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="column2">
+                        <div class="row-line">
+                            <span class="type">
+                                <strong>Duration: </strong>
+                            </span>
+                            {{ movie.runtime }}
+                        </div>
+                        <div class="row-line">
+                            <span class="type">
+                                <strong>Country: </strong>
+                            </span>
+                            {% for country in movie.production_countries.all %}
+                                {{country.name}}, 
+                            {% endfor %}  
+                        </div>
+                        <div class="row-line">
+                            <span class="type">
+                                <strong>Production: </strong>
+                            </span>
+                            {% for company in movie.production_companies.all %}
+                                {{company.name}}, 
+                            {% endfor %}  
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <section class="footer">
+        <div class="social">
+            <a href="#"><i class='bx bxl-facebook'></i></a>
+            <a href="#"><i class='bx bxl-twitter'></i></a>
+            <a href="#"><i class='bx bxl-instagram'></i></a>
+            <a href="#"><i class='bx bxl-tiktok'></i></a>
+        </div>
+    </section>
+    <!-- Copyright -->
+    <div class="copyright">
+        <p>&#169; DangDung All Right Reserved.</p>
+    </div>
+
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Link to Custom JS-->
+    <script src="{% static 'Home/home.js' %}"></script>
+</body>
+</html>

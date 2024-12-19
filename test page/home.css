@@ -1,0 +1,190 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600;700&display=swap');
+*{
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+    scroll-padding-top: 2rem;
+    scroll-behavior: smooth;
+    
+}
+/* Some Variables */
+/* Custom Scroll Bar */
+html::-webkit-scrollbar{
+    width: 0.5rem;
+    background:  #020307;
+}
+html::-webkit-scrollbar-thumb{
+    background: #ff2c1f;
+    border-radius: 5rem;
+}
+body{
+    background:  #020307;
+    color: #fff;
+}
+section{  
+    padding: 4.5rem 0 1.5rem;
+}
+header{
+    position: fixed;
+    width: 100%;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 100px;
+    transition: 0.5s;
+    /* background: #ff2c1f; */
+}
+header.shadow{
+    background: #fff;
+    box-shadow: 0 0 4px rbg(14 55 54 / 15%);
+}
+header.shadow .navbar a{
+    color:  #020307;
+}
+header.shadow .logo{
+    color:  #020307;
+}
+header.shadow .navbar li ul{
+    background: #fff;
+    width: 250%;
+}
+header.shadow .navbar li ul a{
+    color:  #020307;
+}
+.logo{
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    column-gap: 0.5rem;
+}
+.logo .bx{
+    font-size: 24px;
+    color: #ff2c1f;
+}
+.navbar{
+    display: flex;
+    column-gap: 5rem;
+}
+.navbar li{
+    position: relative;   
+}
+.navbar a{
+    font-size: 1rem;
+    font-weight: 500;
+    color: #fff;
+}
+.navbar li ul.dropdown{
+    width: auto;
+    background:  #020307;
+    position: absolute;
+    z-index: 999;
+    display: none;
+}
+.navbar li:hover ul.dropdown{
+    display: block;
+}
+.navbar a::after{
+    content: "";
+    width: 0;
+    height: 2px;
+    background: #ff2c1f;
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    transition: 0.4s all linear;
+}
+.navbar a:hover::after, 
+.navbar .home-active::after{
+    width: 100%;   
+}
+#menu-icon{
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1000001;
+    display: none;
+}
+.btn{
+    padding: 0.7rem 1.4rem;
+    background: #ff2c1f;
+    color: #fff;
+    font-weight: 400;
+    border-radius: 0.5rem;
+}
+.btn:hover{
+    background: #fa1216;
+}
+
+.heading{
+    max-width: 968px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    border-bottom: 1px solid #ff2c1f;
+}
+.movies-container{
+    max-width: 968px;
+    margin-right: auto;
+    margin-left: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, auto));
+    gap: 1rem;
+    margin-top: 2rem;
+}
+.box .box-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.box .box-img img:hover{
+    transform: translateY(-10px);
+    transition: 0.2s all linear;
+}
+.box h3{
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+.box span{
+    font-size: 13px;
+}
+
+/* phan user profile */
+.container{
+    max-width: 968px;
+    height: 450px;
+    background-color: #000000;
+    margin-top: 2rem;
+}
+.card{
+    background-color: #000000;
+}
+.account-settings-links{
+    background-color: #fff;
+}
+
+.account-settings-links .list-group-item.active {
+    font-weight: bold !important;
+}
+
+html:not(.dark-style) .account-settings-links .list-group-item.active {
+    background: transparent !important;
+}
+
+.light-style .account-settings-links .list-group-item {
+    padding     : 0.85rem 1.5rem;
+    border-color: rgba(24, 28, 33, 0.03) !important;
+}
+
+.light-style .account-settings-links .list-group-item.active {
+    color: #000000 !important;
+}

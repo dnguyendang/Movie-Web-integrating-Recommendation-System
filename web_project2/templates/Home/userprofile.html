@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+
+    <!-- Link CSS for userprofile -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'Home/userprofile.css' %}">
+    <!--Box Icons-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+        .coming-container{
+            display: grid;
+            gap: 1rem;
+            max-width: 968px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 2rem;
+        }
+        .coming-container .box-img img:hover{
+            transform: translateY(0) ;
+        }
+        .coming-container .box{
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar-->
+    <header>
+        <a href="#" class="logo">
+            <i class='bx bxs-movie'></i> Movies
+        </a>
+        <div class="bx bx-menu" id="menu-icon"></div>
+
+        <!-- Menu -->
+        <ul class="navbar">
+            <li><a href="{% url 'Home' %}#home" class="home-active">Home</a></li>
+            <li><a href="{% url 'Movies' %}">Movies</a></li>
+            <li><a href="{% url 'Movies_popularity' %}">Popular</a></li>
+            <li><a href="{% url 'Movies_rate' %}">Top Rated</a></li>
+            <li><a>Genre</a>
+                <ul class="dropdown">
+                    {% for genre in genres %}
+                        <li><a href="{% url 'Movies_by_genre' genre.id %}">{{genre.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li><a>Country</a>
+                <ul class="dropdown">
+                    {% for country in countries %}
+                        <li><a href="{% url 'Movies_by_country' country.id %}">{{country.name}}</a></li>
+                    {% endfor %}
+                </ul>
+            </li>
+        </ul>
+        {% if user.is_authenticated %}
+            <div class="button">
+                <a href="{% url 'UserProfile' %}" class="btn">{{user.username}}</a>
+                <a href="{% url 'Logout' %}" class="btn">Logout</a>
+            </div>
+        {% else %}
+            <div class="button">
+                <a href="{% url 'Login' %}" class="btn">Login</a>
+                <a href="{% url 'Register' %}" class="btn">Register</a>
+            </div>
+        {% endif %}
+    </header>
+
+    <!-- profile user -->
+    <section class="userprofile" id="userprofile">
+        <h2 class="heading">User Profile</h2>
+        <!-- content -->
+        <div class="container light-style flex-grow-1 container-p-y">
+            <div class="card overflow-hidden">
+                <div class="row no-gutters row-bordered row-border-light">
+                    <div class="col-md-3 pt-0">
+                        <div class="list-group list-group-flush account-settings-links">
+                            <a class="list-group-item list-group-item-action active"
+                                href="{% url 'UserProfile' %}">General</a>
+                            <a class="list-group-item list-group-item-action"
+                                href="{% url 'ChangePassword' %}">Change password</a>
+                            <a class="list-group-item list-group-item-action"
+                                href="{% url 'Info' %}">Info</a>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="tab-content">
+                            <div class="tab-pane fade active show" id="account-change-password">
+                                <form method="post" action="{% url 'UserProfile' %}">
+                                    {% csrf_token %}
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="{{ edit_form.first_name.id_for_label }}" class="form-label">{{edit_form.first_name.label}}</label>
+                                            <input type="text" class="form-control" name="first_name" value="{{edit_form.first_name.value}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="{{ edit_form.last_name.id_for_label }}" class="form-label">{{edit_form.last_name.label}}</label>
+                                            <input type="text" class="form-control" name="last_name" value="{{edit_form.last_name.value}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="{{ edit_form.email.id_for_label }}" class="form-label">{{edit_form.email.label}}</label>
+                                            <input type="email" class="form-control mb-1" name="email" value="{{edit_form.email.value}}">
+                                        </div>
+                                    </div>
+                                    <div class="text-right mt-3">
+                                        <button type="submit" class="btn">Save changes</button>&nbsp;
+                                        <a href="{% url 'UserProfile' %}">
+                                            <button type="button" class="btn">Cancel</button>
+                                        </a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- suggestion -->
+    <section class="suggestion" id="suggestion">
+        <h2 class="heading">You may favourite</h2>
+        <!-- Coming Container -->
+        <div class="coming-container swiper">
+            <div class="swiper-wrapper">
+                <!-- box --> 
+                {% for recommend in personal_recommend_movies %}
+                    <div class="swiper-slide box">
+                        <a href="{% url 'Movie_details' recommend.movie.id %}" class="movie_link">
+                            <div class="box-img">
+                                <img src="{{recommend.movie.poster_path}}" alt="">
+                            </div>
+                            <h3 class="title"><strong>{{recommend.movie.title}}</strong></h3>
+                        </a>
+                        <span>{{recommend.movie.release_date}}</span>
+                        <br>
+                        <span>{{recommend.movie.runtime}} min | 
+                            {% for genre in recommend.movie.genres.all %}
+                            {{genre.name}}
+                            {% endfor %}</span>
+                    </div>
+                {% endfor %}
+            </div>          
+        </div>
+    </section>
+
+    <!-- suggestion -->
+    <section class="suggestion2" id="suggestion2">
+        <h2 class="heading">Recommend by Others</h2>
+        <!-- Coming Container -->
+        <div class="coming-container swiper">
+            <div class="swiper-wrapper">
+                <!-- box --> 
+                {% for recommend in users_recommend_movies %}
+                    <div class="swiper-slide box">
+                        <a href="{% url 'Movie_details' recommend.movie.id %}" class="movie_link">
+                            <div class="box-img">
+                                <img src="{{recommend.movie.poster_path}}" alt="">
+                            </div>
+                            <h3 class="title"><strong>{{recommend.movie.title}}</strong></h3>
+                        </a>
+                        <span>{{recommend.movie.release_date}}</span>
+                        <br>
+                        <span>{{recommend.movie.runtime}} min | 
+                            {% for genre in recommend.movie.genres.all %}
+                            {{genre.name}}
+                            {% endfor %}</span>
+                    </div>
+                {% endfor %}
+            </div>          
+        </div>
+    </section>
+
+    <!-- Movie -->
+    <section class="movies" id="movies">
+        <h2 class="heading">History</h2>
+        <!-- Movies Conatiner -->
+        <div class="movies-container">
+            {% for history in history_movies %}
+                <div class="box">
+                    <a href="{% url 'Movie_details' history.id %}" class="movie_link">
+                        <div class="box-img">
+                            <img src="{{history.poster_path}}" alt="">
+                        </div>
+                        <h3 class="title"><strong>{{history.title}}</strong></h3>
+                    </a>
+                    <span>{{history.release_date}}</span>
+                    <br>
+                    <span>{{history.runtime}} min | 
+                        {% for genre in history.genres.all %}
+                        {{genre.name}}
+                        {% endfor %}</span>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- Link to Custom JS-->
+    <script src="{% static 'Home/home.js' %}"></script>
+</body>
+</html>

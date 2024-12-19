@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'Account/account.css' %}">
+</head>
+<body>
+    <div class="hero">
+        <div class="form-box">
+            <div class="button-box">
+                <div id="btn"></div>
+                <button type="button" class="toggle-btn" onclick="login()">Login</button>
+                <button type="button" class="toggle-btn" onclick="register()">Register</button>
+            </div>
+            <form id="login" class="input-group" method="post">
+                {% csrf_token %}
+                {% for field in login_form %}
+                <input type="{{ field.field.widget.input_type }}" class="input-field" name="{{ field.name }}" placeholder="{{ field.label}}" required>
+                {% if field.help_text %}
+                <p class="help-text" style="font-size: 15px;"> {{ field.help_text }} </p>
+                {% endif %}
+                {% endfor %}
+                <input type="checkbox" class="check-box"><span>Remember Password</span>
+                <button type="submit" class="submit-btn">Log in</button>
+            </form>
+            <form id="register" class="input-group" method="post">
+                {% csrf_token %}
+                {% for field in register_form %}
+                <input type="{{ field.field.widget.input_type }}" class="input-field" name="{{ field.name }}" placeholder="{{ field.label}}" required>
+                {% if field.help_text %}
+                <p class="help-text"> {{ field.help_text }} </p>
+                {% endif %}
+                {% endfor %}
+                <input type="checkbox" class="check-box"><span>I agree to the terms & conditions</span>
+                <button type="submit" class="submit-btn">Registers</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        var x = document.getElementById("login");
+        var y = document.getElementById("register");
+        var z = document.getElementById("btn");
+
+        function register(){
+            x.style.left = "-400px";
+            y.style.left = "50px";
+            z.style.left = "110px";
+        }
+
+        function login(){
+            x.style.left = "50px";
+            y.style.left = "450px";
+            z.style.left = "0";
+        }
+        
+    </script>
+</body>
+</html>

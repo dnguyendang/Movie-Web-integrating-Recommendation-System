@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie By Country</title>
+
+    <!-- Link CSS for userprofile -->
+    <link rel="stylesheet" href="{% static 'Movie/movies.css' %}">
+    
+    <!--Box Icons-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <style>
+        .pagination{
+            display: flex;
+            align-items: center;
+            background: #000000;
+            color: #000000;
+            padding: 10px 40px;
+            border-radius: 6px;
+            max-width: 600px;
+            margin: auto;
+            margin-top: 50px;
+        }
+        .step-links{
+            display: flex;
+            align-items: center;
+            margin: auto;
+        }
+        .button{
+            padding: 0.5rem 0.5rem;
+            background: var(--main-color);
+            color: var(--bg-color);
+            font-weight: 500;
+            margin-left: 1rem;
+            margin-right: 1rem;
+            border-radius: 0.5rem;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Navbar-->
+    <header>
+        <a href="#" class="logo">
+            <i class='bx bxs-movie'></i> Movies
+        </a>
+        <div class="bx bx-menu" id="menu-icon"></div>
+
+        <!-- Menu -->
+        <ul class="navbar">
+            <li><a href="{% url 'Home' %}#home" class="home-active">Home</a></li>
+            <li><a href="{% url 'Movies' %}">Movies</a></li>
+            <li><a href="{% url 'Movies_popularity' %}">Popular</a></li>
+            <li><a href="{% url 'Movies_rate' %}">Top Rated</a></li>
+            <li><a>Genre</a>
+                <ul class="dropdown">
+                    {% for genre in genres %}
+                        <li><a href="{% url 'Movies_by_genre' genre.id %}">{{genre.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li><a>Country</a>
+                <ul class="dropdown">
+                    {% for country in countries %}
+                        <li><a href="{% url 'Movies_by_country' country.id %}">{{country.name}}</a></li>
+                    {% endfor %}
+                </ul>
+            </li>
+        </ul>
+        {% if user.is_authenticated %}
+            <div class="button">
+                <a href="{% url 'UserProfile' %}" class="btn">{{user.username}}</a>
+                <a href="{% url 'Logout' %}" class="btn">Logout</a>
+            </div>
+        {% else %}
+            <div class="button">
+                <a href="{% url 'Login' %}" class="btn">Login</a>
+                <a href="{% url 'Register' %}" class="btn">Register</a>
+            </div>
+        {% endif %}
+    </header>
+    
+    <!-- Movie -->
+    <section class="movies" id="movies">
+        <h2 class="heading">{{country_main.name}}</h2>
+        <!-- Movies Conatiner -->
+        <div class="movies-container">      
+            {% for movie in page_obj %}
+                <div class="box">
+                    <a href="{% url 'Movie_details' movie.id %}" class="movie_link">
+                        <div class="box-img">
+                            <img src="{{movie.poster_path}}" alt="">
+                        </div>
+                        <h3 class="title"><strong>{{movie.title}}</strong></h3>
+                    </a>
+                    <span>{{movie.release_date}}</span>
+                    <br>
+                    <span>{{movie.runtime}} min | 
+                        {% for genre in movie.genres.all %}
+                        {{genre.name}}
+                        {% endfor %}</span>
+                </div>
+            {% endfor %}
+        </div>
+        
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1" class="button">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}" class="button">previous</a>
+                {% endif %}
+
+                <span class="button">
+                    {{page_obj.number }}/{{ page_obj.paginator.num_pages }}
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}" class="button">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}" class="button">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+
+    </section>
+
+
+
+    <!-- Link to Custom JS-->
+    <script src="{% static 'Home/home.js' %}"></script>
+</body>
+</html>
